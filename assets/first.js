@@ -167,36 +167,15 @@ function updatecourse(index){
     capacity.value = courses[index].capacity;
 
     upd.addEventListener("click",(e) => {
-        if (isValid) {
-            const course = {
-                name: name.value,
-                category: category.value,
-                price: price.value,
-                description: description.value,
-                capacity: capacity.value,
-            };
             let courses = JSON.parse(localStorage.getItem("courses")) || [];
-            courses.push(course);
+            courses[index].name=name.value;
+            courses[index].category=category.value;
+            courses[index].price= price.value;
+            courses[index].description=description.value;
+            courses[index].capacity=capacity.value;
             localStorage.setItem("courses", JSON.stringify(courses));
-            
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-            Toast.fire({
-                icon: "success",
-                title: "Course added successfully"
-            });
-    
             display();
-        }
+        
     })
 }
 del.addEventListener("click",(e) => {
